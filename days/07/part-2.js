@@ -42,8 +42,7 @@ lib.getInput('7').then(input => {
   }
 
   const total = beams[beams.length - 1].reduce((acc, curr) => acc += curr.total, 0);
-  console.log(beams);
-  // console.log(grid);
-  console.log(total);
+  
+  console.log('answer', total);
 })
 
