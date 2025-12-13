@@ -16,33 +16,39 @@ lib.getInput('7').then(input => {
 
     for (const beam of prevBeams) {
       if (row[beam.index] === '.') {
-        grid[rowIndex - 1][beam.index] = '|'
-        newBeams.push({ index: beam.index, total: beam.total });
-      } else if (row[beam.index] === '^') {
-          grid[rowIndex - 1][beam.index - 1] = '|';
-          grid[rowIndex - 1][beam.index + 1] = '|';
+        grid[rowIndex - 1][beam.index] = '|';
 
-          const getTotal = (index) => {
-            const existing = newBeams.find(f => f.index === index);
-            const total = beam.total;
-
-            if (existing) {
-              existing.total += total;
-            } else {
-              newBeams.push({ index: index, total: total });
-            }
-          }
-
-          getTotal(beam.index - 1);
-          getTotal(beam.index + 1);
+        const existing = newBeams.find(f => f.index === beam.index);
+        if(existing) {
+          existing.total += beam.total;
+        } else {
+          newBeams.push({ index: beam.index, total: beam.total });
         }
+      } else if (row[beam.index] === '^') {
+        grid[rowIndex - 1][beam.index - 1] = '|';
+        grid[rowIndex - 1][beam.index + 1] = '|';
+
+        const getTotal = (index) => {
+          const existing = newBeams.find(f => f.index === index);
+          const total = beam.total;
+
+          if (existing) {
+            existing.total += total;
+          } else {
+            newBeams.push({ index: index, total: total });
+          }
+        }
+
+        getTotal(beam.index - 1);
+        getTotal(beam.index + 1);
+      }
     }
 
     beams.push(newBeams);
   }
 
   const total = beams[beams.length - 1].reduce((acc, curr) => acc += curr.total, 0);
-  
+
   console.log('answer', total);
 })
 
