@@ -9,7 +9,6 @@ lib.getInput('7').then(input => {
     if(rowIndex === 0 || rowIndex === grid.length) continue;
 
     const rowAbove = grid[rowIndex - 1];
-    const rowBelow = grid[rowIndex + 1];
 
     for(const [colIndex, col] of row.entries()) {
       if(rowAbove[colIndex] === 'S') {
@@ -28,6 +27,7 @@ lib.getInput('7').then(input => {
       }
     }
   }
-  console.log(answer)
+
+  console.log('answer:', answer)
 })
 
